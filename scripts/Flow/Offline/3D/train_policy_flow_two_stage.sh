@@ -98,7 +98,7 @@ get_common_params() {
         policy.encoder_type=${encoder_type} \
         policy.model=${model} \
         policy.act=${act} \
-        use_action_embed=True \
+        use_action_embed=False \
         horizon=3 \
         n_action_steps=1 \
         n_obs_steps=3 \

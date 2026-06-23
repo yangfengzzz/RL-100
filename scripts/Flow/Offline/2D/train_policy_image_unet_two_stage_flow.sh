@@ -124,7 +124,7 @@ get_common_params() {
         policy._target_=rl_100.policy.rl100_2d.RL1002D \
         policy.ddim_noise_scheduler.num_train_timesteps=100 \
         training.resume=True \
-        use_action_embed=True \
+        use_action_embed=False \
         horizon=3 \
         n_action_steps=1 \
         n_obs_steps=3 \

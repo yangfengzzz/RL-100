@@ -73,7 +73,7 @@ for lr_a in 5.8e-6; do
                 training.resume=True \
                 policy._target_=rl_100.policy.rl100_3d.RL1003D \
                 policy.scheduler_type='flow' \
-                use_action_embed=True \
+                use_action_embed=False \
                 horizon=3 \
                 n_action_steps=1 \
                 n_obs_steps=3 \
@@ -128,7 +128,7 @@ for lr_a in 5.8e-6; do
                 ppo.idql_eval=False \
                 policy.use_vib=True \
                 policy.use_recon=True \
-                dynamics_type='mlp' \
+                dynamics_type='diffusion' \
                 ppo.recon=True \
                 ppo.value_recon=True \
                 ppo.online_iql_recon=True \

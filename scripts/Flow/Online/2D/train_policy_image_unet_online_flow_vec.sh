@@ -62,7 +62,7 @@ for lr_a in 4.4e-6; do
                 unio4.rollout_length=30 \
                 training.resume=True \
                 policy._target_=rl_100.policy.rl100_2d.RL1002D \
-                use_action_embed=True \
+                use_action_embed=False \
                 horizon=3 \
                 n_action_steps=1 \
                 n_obs_steps=3 \
