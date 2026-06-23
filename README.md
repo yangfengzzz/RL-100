@@ -128,6 +128,7 @@ RL-100 aims to provide one of the most complete codebases for diffusion-policy R
 ## Table of Contents
 
 - [0. Quick Install Pointer](#0-quick-install-pointer)
+  - [Download the Smoke-Test Dataset](#download-the-smoke-test-dataset)
 - [1. Project Overview](#1-project-overview)
 - [2. RL Post-Training Framework](#2-rl-post-training-framework)
 - [3. Real-Robot Training and Data Flywheel](#3-real-robot-training-and-data-flywheel)
@@ -141,6 +142,43 @@ RL-100 aims to provide one of the most complete codebases for diffusion-policy R
 ## 0. Quick Install Pointer
 
 For environment setup and dependency installation, see the [Installation](#installation) section and [`INSTALL.md`](INSTALL.md). We recommend using `adroit_door_medium` as the first smoke-test task.
+
+### Download the Smoke-Test Dataset
+
+The recommended `adroit_door_medium` zarr dataset is hosted on Hugging Face Datasets: [`leokk/RL-100-adroit-door-medium`](https://huggingface.co/datasets/leokk/RL-100-adroit-door-medium). From the repository root, download it with the Hugging Face CLI:
+
+```bash
+python -m pip install -U huggingface_hub
+mkdir -p RL-100/data
+hf download leokk/RL-100-adroit-door-medium \
+  adroit_door_medium.zarr.tar.gz \
+  --repo-type dataset \
+  --local-dir /tmp
+tar -xzf /tmp/adroit_door_medium.zarr.tar.gz -C RL-100/data
+```
+
+If direct URL downloads are more convenient in your environment, use:
+
+```bash
+mkdir -p RL-100/data
+wget -O /tmp/adroit_door_medium.zarr.tar.gz \
+  https://huggingface.co/datasets/leokk/RL-100-adroit-door-medium/resolve/main/adroit_door_medium.zarr.tar.gz
+tar -xzf /tmp/adroit_door_medium.zarr.tar.gz -C RL-100/data
+```
+
+Optional checksum verification:
+
+```bash
+echo "73a7cd510a0715492e8f8041843ac51edf1a0feb6d30706a95a5e5857addef37  /tmp/adroit_door_medium.zarr.tar.gz" | sha256sum -c -
+```
+
+After extraction, the dataset should be available at:
+
+```text
+Repo/RL-100/data/adroit_door_medium.zarr
+```
+
+The dataset follows the RL-100 repository/data release terms. The formal dataset license will be finalized together with the public repository license.
 
 ## 1. Project Overview
 
