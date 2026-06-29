@@ -61,7 +61,7 @@ dynamics_type: 'diffusion'
 predict_r: False
 offline_cp_timestamp: null
 offline_cp_timestep: null
-chunk_as_single_action: False
+chunk_as_single_action: True
 chunk_adv_clip: null
 offline_chunk_ratio_mode: scalar
 offline_chunk_adv_mode: scalar_iql
@@ -366,7 +366,7 @@ unio4:
   top_k: 1
   fix_encoder: true
   rollout_length: 20
-  use_gae: true
+  use_gae: false
   first_action: false
   use_ema_eval: false
   idql_eval: True

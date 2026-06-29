@@ -70,7 +70,7 @@ wo_dataset: False
 # 添加encoder选择参数（移到全局）
 encoder_type: "resnet"  # 可选: "resnet", "vit"
 use_wandb: True
-chunk_as_single_action: False
+chunk_as_single_action: True
 chunk_adv_clip: null
 offline_chunk_ratio_mode: scalar
 offline_chunk_adv_mode: scalar_iql
@@ -432,7 +432,7 @@ unio4:
   top_k: 1
   fix_encoder: true
   rollout_length: 20
-  use_gae: true
+  use_gae: false
   first_action: false
   use_ema_eval: false
   idql_eval: False
