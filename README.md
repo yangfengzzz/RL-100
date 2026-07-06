@@ -538,18 +538,18 @@ See [`INSTALL.md`](INSTALL.md) for the full environment setup. We recommend usin
 </tr>
 </thead>
 <tbody>
-<tr><td>NVIDIA driver</td><td><code>550.54.15</code></td></tr>
-<tr><td>System CUDA</td><td><code>12.4</code></td></tr>
-<tr><td>Python</td><td><code>3.8.20</code></td></tr>
-<tr><td>PyTorch</td><td><code>2.4.0+cu121</code></td></tr>
+<tr><td>GPU</td><td><code>NVIDIA GeForce RTX 5090</code></td></tr>
+<tr><td>NVIDIA driver</td><td><code>590.48.01</code></td></tr>
+<tr><td>System CUDA</td><td><code>13.1</code></td></tr>
+<tr><td>Python</td><td><code>3.10.20</code></td></tr>
+<tr><td>PyTorch</td><td><code>2.11.0+cu128</code></td></tr>
 </tbody>
 </table>
 
 **Minimal workflow:**
 
 ```bash
-conda create -n rl100 --clone dp3 -y
-conda activate rl100
+conda activate rl-100
 
 export REPO_ROOT=$(pwd)
 export PYTHONPATH=${REPO_ROOT}/RL-100:${PYTHONPATH}

@@ -2,39 +2,39 @@
 
 This guide installs the environment used by RL-100 for simulation training, iterative offline RL, online RL, and flow/diffusion policy distillation.
 
-The setup below was verified on the current server with:
+The setup below was verified on the current Blackwell server with:
 
 ```text
-NVIDIA driver: 550.54.15
-System CUDA shown by nvidia-smi: 12.4
-Python: 3.8.20
-PyTorch: 2.4.0+cu121
-torch.version.cuda: 12.1
+GPU: NVIDIA GeForce RTX 5090
+NVIDIA driver: 590.48.01
+System CUDA shown by nvidia-smi: 13.1
+Python: 3.10.20
+PyTorch: 2.11.0+cu128
+torch.version.cuda: 12.8
 ```
 
-The driver supports CUDA 12.4, while the verified PyTorch wheel is the CUDA 12.1 build. This is expected: CUDA 12.1 PyTorch wheels run correctly on the CUDA 12.4 driver.
+RTX 50-series / Blackwell GPUs require a recent PyTorch CUDA wheel with Blackwell support. Do not downgrade this environment to the old CUDA 12.1 PyTorch wheel from earlier RL-100 setups.
 
 ## 1. Create the Environment
 
 ### Recommended on this server
 
-The existing `dp3` environment is known to run this repo. The verified `rl100` environment was created by cloning it, then reinstalling editable packages to this repo path:
+The verified conda environment on this machine is named `rl-100`.
 
 ```bash
-conda create -n rl100 --clone dp3 -y
-conda activate rl100
+conda activate rl-100
 ```
 
 ### From scratch
 
-For a clean machine, start with Python 3.8 and the verified PyTorch version:
+For a clean Blackwell machine, start with Python 3.10 and a CUDA 12.8+ PyTorch wheel:
 
 ```bash
-conda create -n rl100 python=3.8 -y
-conda activate rl100
+conda create -n rl-100 python=3.10 -y
+conda activate rl-100
 
-python -m pip install "setuptools==59.5.0" wheel
-python -m pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu121
+python -m pip install wheel "setuptools>=70,<71"
+python -m pip install torch==2.11.0 torchvision==0.26.0 torchaudio==2.11.0 --index-url https://download.pytorch.org/whl/cu128
 ```
 
 Then install the Python package set used by RL-100:
@@ -42,7 +42,7 @@ Then install the Python package set used by RL-100:
 ```bash
 python -m pip install \
   zarr==2.12.0 wandb==0.20.1 ipdb==0.13.13 gpustat==1.1.1 \
-  dm_control==1.0.23 omegaconf==2.3.0 hydra-core==1.2.0 dill==0.3.5.1 \
+  dm_control==1.0.43 omegaconf==2.3.0 hydra-core==1.2.0 dill==0.3.5.1 \
   einops==0.8.1 diffusers==0.33.1 huggingface_hub==0.33.1 numba==0.56.4 \
   moviepy==1.0.3 imageio==2.35.1 av==12.3.0 matplotlib==3.7.5 termcolor==2.4.0 \
   open3d==0.19.0 opencv-python==4.11.0.86 scipy==1.10.1 scikit-learn==1.3.2 \
@@ -130,7 +130,7 @@ sudo apt-get install -y libglew-dev libgl1-mesa-dev libosmesa6-dev libglfw3 libg
 From the repo root:
 
 ```bash
-conda activate rl100
+conda activate rl-100
 
 python -m pip install -e third_party/dexart-release
 python -m pip install -e third_party/gym-0.21.0
@@ -147,6 +147,7 @@ Important notes:
 - Do **not** run `pip install -e RL-100`; `RL-100/` is imported through `PYTHONPATH`.
 - The current `third_party/r3m` directory does not contain an installable package. The verified server environment currently imports `r3m` from an external editable install. For a clean release, either populate `third_party/r3m` with the R3M source or install an equivalent `r3m` package before running image/R3M encoder code paths.
 - `gym` should resolve to this repo's `third_party/gym-0.21.0`.
+- `third_party/dexart-release/dexart/` must contain package marker files (`__init__.py`) so editable installation exposes the `dexart` module.
 
 Check editable locations:
 
@@ -177,7 +178,7 @@ RL-100/rl_100/config/task/adroit_door_medium.yaml
 Run these from the repo root:
 
 ```bash
-conda activate rl100
+conda activate rl-100
 export REPO_ROOT=$(pwd)
 export PYTHONPATH=${REPO_ROOT}/RL-100:${PYTHONPATH}
 export LD_LIBRARY_PATH=${HOME}/.mujoco/mujoco210/bin:/usr/lib/nvidia:/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
@@ -192,7 +193,7 @@ python -c "import gym; print('gym version:', gym.__version__)"
 Expected:
 
 ```text
-torch 2.4.0+cu121, torch.version.cuda 12.1, cuda available True
+torch 2.11.0+cu128, torch.version.cuda 12.8, cuda available True
 imports ok 0.19.0
 gym version: 0.21.0
 ```
@@ -208,7 +209,7 @@ scripts/Flow/Online/3D/train_policy_online_flow_distill_online.sh
 Use this standard example command in the `rl100` environment:
 
 ```bash
-conda activate rl100
+conda activate rl-100
 export REPO_ROOT=$(pwd)
 export PYTHONPATH=${REPO_ROOT}/RL-100:${PYTHONPATH}
 export LD_LIBRARY_PATH=${HOME}/.mujoco/mujoco210/bin:/usr/lib/nvidia:/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
